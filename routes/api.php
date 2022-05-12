@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentAPIController;
+use App\Http\Controllers\API\APILoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +27,9 @@ Route::get('/getStudent/{id}', [StudentAPIController::class, 'getStudentID']);
 Route::put('/updateStudent/{id}', [StudentAPIController::class, 'updateStudent']);
 //Delete Student
 Route::delete('deleteStudent/{id}', [StudentAPIController::class, 'deleteStudent']);
+
+Route::post('login', [APILoginController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
