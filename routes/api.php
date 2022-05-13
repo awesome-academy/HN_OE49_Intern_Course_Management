@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentAPIController;
 use App\Http\Controllers\API\APILoginController;
+use App\Http\Controllers\API\APICourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,14 @@ Route::delete('deleteStudent/{id}', [StudentAPIController::class, 'deleteStudent
 Route::post('login', [APILoginController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [APILoginController::class, 'logout']);
+    Route::prefix('courses')->group(function () {
+        Route::get('/', [APICourseController::class, 'index']);
+        Route::get('create', [APICourseController::class, 'create']);
+        Route::post('/', [APICourseController::class, 'store']);
+        Route::get('{id}', [APICourseController::class, 'show']);
+        Route::get('{id}/edit', [APICourseController::class, 'edit']);
+        Route::patch('{id}', [APICourseController::class, 'update']);
+        Route::delete('{id}', [APICourseController::class, 'destroy']);
+    });
 });

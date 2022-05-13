@@ -115,15 +115,11 @@ class CourseController extends Controller
      */
     public function update(EditCourseRequest $request, $id)
     {
-        $this->userRepo->find($request->user);
-
-        $this->courseRepo->update($id, [
-            'name' => $request->name,
-            'user' => $request->user,
-            'credits' => $request->credits,
-            'numbers' => $request->numbers,
-            'semester_id' => $request->semester,
+        $this->userRepo->find($request->user, [
+            'role_id' => config('auth.roles.lecturer')
         ]);
+
+        $this->courseRepo->update($id, $request->all());
         $course = $this->courseRepo->getCourseWithLecturer($id);
         if (isset($course->users[0])) {
             if ($course->users[0]->id != $request->user) {
