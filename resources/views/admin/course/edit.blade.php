@@ -83,7 +83,7 @@
                                 <label>{{ __('semester') }}</label>
                             </td>
                             <td>
-                                <select name="semester">
+                                <select name="semester_id">
                                     @foreach ($semesters as $key => $semester)
                                         @if ($semester->id == $course->semester_id)
                                             <option selected="selected" value="{{ $semester->id }}"> Học kì

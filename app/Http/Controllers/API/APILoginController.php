@@ -23,22 +23,22 @@ class APILoginController extends Controller
         try {
             $user = $this->userRepo->findUser($request->email)->first();
 
-            if (!Auth::attempt([
+            if (Auth::attempt([
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
             ])) {
+                $token = $user->createToken('authToken')->plainTextToken;
+
                 return response()->json([
-                    'status_code' => 500,
-                    'message' => __('login-fail'),
+                    'status_code' => 200,
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
                 ]);
             }
 
-            $token = $user->createToken('authToken')->plainTextToken;
-
             return response()->json([
-                'status_code' => 200,
-                'access_token' => $token,
-                'token_type' => 'Bearer',
+                'status_code' => 500,
+                'message' => __('login-fail'),
             ]);
         } catch (\Exception $exception) {
             return response()->json([

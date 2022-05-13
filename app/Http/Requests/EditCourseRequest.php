@@ -28,7 +28,7 @@ class EditCourseRequest extends FormRequest
             'credits' => 'integer',
             'numbers' => 'integer',
             'user' => 'integer',
-            'semester' => 'integer'
+            'semester_id' => 'integer'
         ];
     }
 
@@ -40,7 +40,7 @@ class EditCourseRequest extends FormRequest
             'credits.integer' =>  __('credits.integer'),
             'numbers.integer' =>  __('numbers.integer'),
             'user.integer' =>  __('user.integer'),
-            'semester.integer' =>  __('semester.integer'),
+            'semester_id.integer' =>  __('semester.integer'),
         ];
     }
 }
